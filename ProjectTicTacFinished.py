@@ -12,25 +12,25 @@
 pole = []
 for i in range(0,3):
     pole.append(["."]*3)
-def print_pole (pole):
+def print_pole (pole):  #Prints gaming board
     for strk in pole:
         print " ".join(strk)
-print_pole(pole)
+print_pole(pole)         #печатает поле первый раз
 turn = True
 nturn = 0
 vari=0
 vari1=0
 x_hod = []
-def xturn(pole):
+def xturn(pole):          #'X' turn
     print "Your turn"
     flag = False
     hod=[]
     while flag==False:
-        x_row = int(raw_input("Row number:"))
-        x_col = int(raw_input("Col number:"))
-        if x_row not in range(3) or x_col not in range(3):
+        x_row = int(raw_input("Row number:"))      #Пользователь вводит строку
+        x_col = int(raw_input("Col number:"))   #Пользователь вводит столбец
+        if x_row not in range(3) or x_col not in range(3):        #Проверка на ошибку выхода за границы
             print "Out of bounds.Try again."
-        elif pole[x_row][x_col]=="X" or pole[x_row][x_col]=="0":
+        elif pole[x_row][x_col]=="X" or pole[x_row][x_col]=="0":   #проверка на ошибку одного и того же места
             print "You cant place X here.Try again."
         else:
             pole[x_row][x_col]="X"
@@ -39,10 +39,10 @@ def xturn(pole):
             hod.append(x_col)
             flag=True
             return hod
-def oturn(pole,nturn,vari,x_hod):
+def oturn(pole,nturn,vari,x_hod):    #'0'Turn 
     print "My turn"
     th = x_hod
-    if nturn==1:
+    if nturn==1:                     #Обрабатывает первый ход 0
         if pole[1][1]!='X' and pole[1][1]!='0':
             pole[1][1]="0"
             print_pole(pole)
@@ -51,8 +51,8 @@ def oturn(pole,nturn,vari,x_hod):
             pole[0][0]="0"
             print_pole(pole)
             return 0
-    if nturn==3:
-        if pole[1][1]=='X':
+    if nturn==3:                         #Обрабатывает второй ход 0
+        if pole[1][1]=='X':          #обрабатывает второй ход 0 если Х в центре
             if pole[2][2]=='X':
                 pole[2][0]="0"
                 print_pole(pole)
@@ -70,7 +70,7 @@ def oturn(pole,nturn,vari,x_hod):
                     pole[(th[0]+2)%4][(th[1]+2)%4]="0"
                     print_pole(pole)
                     return 3
-        if pole[1][1]=='0':
+        if pole[1][1]=='0':                 #обрабатывает второй ход 0 если 0 в центре
             if th[1]==1:
                 if pole[th[0]][0]=='X':
                     pole[th[0]][2]='0'
@@ -159,11 +159,11 @@ def oturn(pole,nturn,vari,x_hod):
                         pole[2][1]='0'
                         print_pole(pole)
                         return 0
-    if nturn==5 or nturn==7:
+    if nturn==5 or nturn==7:                 #Обрабатывает третий и пятый ход 0
         count=0
         finalr=0
         finalc=0
-        for i in range(3):
+        for i in range(3):                   #Смотрит можно ли выиграть за следующий ход
             for j in range(3):
                 if pole[i][j]=='0':
                     count+=1
@@ -220,7 +220,7 @@ def oturn(pole,nturn,vari,x_hod):
 
 
 
-        for i in range(3):
+        for i in range(3):                   #Смотрит, не может ли выиграть Х на следующем ходу, если может то блокирует его
             for j in range(3):
                 if pole[i][j]=='X':
                     count+=1
@@ -270,7 +270,7 @@ def oturn(pole,nturn,vari,x_hod):
                         print_pole(pole)
                         return 0
         count=0
-        if pole[0][0]!='X':
+        if pole[0][0]!='X':              #Если нельзя выиграть в следующем ходу и нельзя проиграть
             pole[0][0]='0'
             print_pole(pole)
             return 0
@@ -305,9 +305,9 @@ def oturn(pole,nturn,vari,x_hod):
 
 
 
-while nturn<9:
+while nturn<9:                    #Идет по ходам
     if nturn==8:
-        print "Tie!"
+        print "Tie!"              #Если доходит до это места то ничья
         break
     if turn==True:
         x_hod=xturn(pole)
@@ -317,7 +317,7 @@ while nturn<9:
         vari=vari1
         if vari==-1:
             nturn=9
-            print "You lose!"
+            print "You lose!"    #Иначе порожение Х
         turn=True
-    nturn+=1
+    nturn+=1                     #Победа Х не подразумевается, тк компьютер не может проиграть
 
