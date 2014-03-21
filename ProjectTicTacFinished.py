@@ -270,6 +270,18 @@ def oturn(pole,nturn,vari,x_hod):
                         print_pole(pole)
                         return 0
         count=0
+        if pole[0][0]!='X':
+            pole[0][0]='0'
+            print_pole(pole)
+            return 0
+        if pole[0][2]!='X':
+            pole[0][2]='0'
+            print_pole(pole)
+            return 0
+        if pole[2][2]!='X':
+            pole[2][2]='0'
+            print_pole(pole)
+            return 0
 
 
 
